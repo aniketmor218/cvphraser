@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Applications</h1>
+
+{% if counts %}
+<ul class="pills">
+  {% for status, n in counts.items() %}<li><b>{{ n }}</b> {{ status }}</li>{% endfor %}
+</ul>
+{% endif %}
+
+{% if applications %}
+<table>
+  <thead><tr><th>Score</th><th>Role</th><th>Company</th><th>Status</th><th>Updated</th></tr></thead>
+  <tbody>
+  {% for app in applications %}
+    <tr>
+      <td><span class="score {{ 'good' if app.score >= 0.75 else 'ok' if app.score >= 0.6 else 'low' }}">{{ (app.score * 100) | round | int }}%</span></td>
+      <td><a href="{{ url_for('main.posting', posting_id=app.posting_id) }}">{{ app.title }}</a></td>
+      <td>{{ app.company or "—" }}</td>
+      <td>{{ app.status.value }}</td>
+      <td class="muted">{{ app.updated_at[:10] }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p class="empty">Nothing tracked yet. <a href="{{ url_for('main.match') }}">Score your first posting.</a></p>
+{% endif %}
+
+{% if gaps %}
+<h2>Missing most often</h2>
+<p class="muted">Across every posting you have saved. This is your study list.</p>
+<ul class="gaps">
+  {% for skill, count in gaps %}
+  <li><span class="label">{{ skill }}</span>
+      <span class="bar" style="width: {{ (count / gaps[0][1] * 100) | round | int }}%"></span>
+      <span class="muted">{{ count }}</span></li>
+  {% endfor %}
+</ul>
+{% endif %}
+{% endblock %}

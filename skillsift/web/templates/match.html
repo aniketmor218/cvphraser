@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}New match — SkillSift{% endblock %}
+{% block content %}
+<h1>Score a posting</h1>
+
+{% if errors %}<ul class="errors">{% for e in errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+
+<form method="post" action="{{ url_for('main.match') }}">
+  <div class="row">
+    <label>Role title <input name="title" value="{{ title or '' }}" placeholder="Junior ML Engineer"></label>
+    <label>Company <input name="company" placeholder="Acme"></label>
+  </div>
+  <label>Job description
+    <textarea name="jd" rows="14" placeholder="Paste the posting here…">{{ jd or '' }}</textarea>
+  </label>
+  <label>Your CV
+    <textarea name="cv" rows="14" placeholder="Paste your CV here…">{{ cv or '' }}</textarea>
+  </label>
+  <div class="actions">
+    <button type="submit">Score it</button>
+    <label class="inline"><input type="checkbox" name="save" value="1"> Save to tracker</label>
+  </div>
+</form>
+
+{% if result %}
+<section class="result">
+  <h2>{{ result.job_title }}</h2>
+  <p class="headline {{ 'good' if result.score >= 0.75 else 'ok' if result.score >= 0.6 else 'low' }}">
+    {{ result.percentage }}% <small>{{ result.verdict(threshold) }}</small>
+  </p>
+  <p class="muted">skills {{ (result.skill_score * 100) | round | int }}%{% if result.keyword_score %} · keywords {{ (result.keyword_score * 100) | round | int }}%{% endif %}</p>
+
+  {% for warning in result.warnings %}<p class="warn">{{ warning }}</p>{% endfor %}
+
+  {% if result.matched %}
+  <h3>You have</h3>
+  <p class="chips">{% for r in result.matched %}<span class="chip have">{{ r.skill }}</span>{% endfor %}</p>
+  {% endif %}
+
+  {% if result.required_gaps %}
+  <h3>Missing — required</h3>
+  <ul class="evidence">
+    {% for gap in result.required_gaps %}
+    <li><b>{{ gap.skill }}</b>{% if gap.evidence %}<span class="quote">“{{ gap.evidence }}”</span>{% endif %}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+  {% if result.preferred_gaps %}
+  <h3>Missing — nice to have</h3>
+  <p class="chips">{% for g in result.preferred_gaps %}<span class="chip gap">{{ g.skill }}</span>{% endfor %}</p>
+  {% endif %}
+
+  {% if posting_id %}<p class="saved">Saved as <a href="{{ url_for('main.posting', posting_id=posting_id) }}">posting #{{ posting_id }}</a>.</p>{% endif %}
+</section>
+{% endif %}
+{% endblock %}

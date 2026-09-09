@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}{{ posting.title }} — SkillSift{% endblock %}
+{% block content %}
+<h1>{{ posting.title }}</h1>
+<p class="muted">{{ posting.company or "—" }}{% if posting.url %} · <a href="{{ posting.url }}">original posting</a>{% endif %} · saved {{ posting.created_at[:10] }}</p>
+
+{% if application %}
+<p class="headline {{ 'good' if application.score >= 0.75 else 'ok' if application.score >= 0.6 else 'low' }}">
+  {{ (application.score * 100) | round | int }}%
+</p>
+{% if application.gaps %}
+<h3>Missing — required</h3>
+<p class="chips">{% for skill in application.gaps %}<span class="chip gap">{{ skill }}</span>{% endfor %}</p>
+{% endif %}
+
+<form method="post" action="{{ url_for('main.update_status', posting_id=posting.id) }}">
+  <label>Status
+    <select name="status">
+      {% for status in statuses %}
+      <option value="{{ status.value }}" {% if status == application.status %}selected{% endif %}>{{ status.value }}</option>
+      {% endfor %}
+    </select>
+  </label>
+  <label>Notes <textarea name="notes" rows="3">{{ application.notes }}</textarea></label>
+  <button type="submit">Update</button>
+</form>
+{% endif %}
+
+<h3>Posting text</h3>
+<pre class="jd">{{ posting.text }}</pre>
+{% endblock %}

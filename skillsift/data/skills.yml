@@ -1,0 +1,72 @@
+# Skill taxonomy.
+#
+# Each entry maps a canonical skill name to its category and the aliases that
+# should resolve to it. Aliases are matched as whole phrases, never substrings.
+# Add to this file rather than to the code — the matcher is data-driven.
+
+languages:
+  Python:      [python, python3, py]
+  JavaScript:  [javascript, js, es6, ecmascript]
+  TypeScript:  [typescript, ts]
+  Rust:        [rust, rustlang]
+  Go:          [golang, go lang]
+  Java:        [java]
+  C++:         [c++, cpp]
+  SQL:         [sql, ansi sql]
+  Bash:        [bash, shell scripting, shell script, zsh]
+  R:           [r language, r programming]
+
+web:
+  Flask:       [flask]
+  FastAPI:     [fastapi, fast api]
+  Django:      [django]
+  Express:     [express, express.js, expressjs]
+  React:       [react, react.js, reactjs]
+  Node.js:     [node.js, nodejs, node]
+  REST APIs:   [rest, rest api, rest apis, restful, restful api, restful apis]
+  GraphQL:     [graphql]
+  HTML/CSS:    [html, css, html5, scss, tailwind]
+
+data:
+  pandas:      [pandas]
+  NumPy:       [numpy]
+  PostgreSQL:  [postgres, postgresql, psql]
+  SQLite:      [sqlite, sqlite3]
+  MongoDB:     [mongodb, mongo]
+  Redis:       [redis]
+  Spark:       [spark, pyspark, apache spark]
+  ETL:         [etl, elt, data pipeline, data pipelines, data ingestion]
+  Airflow:     [airflow, apache airflow]
+
+ml:
+  Machine Learning: [machine learning, ml, supervised learning, statistical learning]
+  Deep Learning:    [deep learning, neural network, neural networks]
+  PyTorch:          [pytorch, torch]
+  TensorFlow:       [tensorflow, tf, keras]
+  scikit-learn:     [scikit-learn, sklearn, scikit learn]
+  NLP:              [nlp, natural language processing, text mining]
+  Computer Vision:  [computer vision, cv, image classification, opencv]
+  LLMs:             [llm, llms, large language model, large language models, prompt engineering, rag, retrieval augmented generation]
+  MLOps:            [mlops, model deployment, model serving, model monitoring]
+  Feature Engineering: [feature engineering, feature extraction]
+
+infra:
+  Docker:      [docker, containerisation, containerization, containers]
+  Kubernetes:  [kubernetes, k8s]
+  AWS:         [aws, amazon web services, ec2, s3, lambda, sagemaker]
+  Azure:       [azure, microsoft azure, azure ml]
+  GCP:         [gcp, google cloud, google cloud platform, bigquery, vertex ai]
+  CI/CD:       [ci/cd, ci cd, continuous integration, continuous delivery, github actions, jenkins, gitlab ci]
+  Terraform:   [terraform, infrastructure as code, iac]
+  Linux:       [linux, unix, ubuntu]
+  Observability: [monitoring, observability, prometheus, grafana, logging, alerting]
+
+practice:
+  Git:              [git, version control, github, gitlab]
+  Testing:          [testing, unit testing, unit tests, pytest, test driven development, tdd, integration tests]
+  Agile:            [agile, scrum, kanban, sprint, sprints]
+  Code Review:      [code review, code reviews, peer review, pull request, pull requests]
+  System Design:    [system design, software architecture, distributed systems]
+  Documentation:    [documentation, technical writing, writing docs]
+  Communication:    [communication, stakeholder management, presenting, collaboration]
+  Mentoring:        [mentoring, mentorship, coaching, teaching]
