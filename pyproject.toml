@@ -1,0 +1,50 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "skillsift"
+version = "0.3.0"
+description = "Score a CV against job descriptions, track applications, and see which skills you keep missing."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Aniket" }]
+keywords = ["cv", "resume", "job-search", "nlp", "flask"]
+classifiers = [
+    "Environment :: Console",
+    "Framework :: Flask",
+    "Programming Language :: Python :: 3",
+    "Topic :: Text Processing :: Linguistic",
+]
+dependencies = [
+    "Flask>=3.0",
+    "PyYAML>=6.0",
+]
+
+[project.optional-dependencies]
+pdf = ["pypdf>=4.0"]
+dev = ["pytest>=8.0", "pytest-cov>=5.0", "ruff>=0.5"]
+
+[project.scripts]
+skillsift = "skillsift.cli:main"
+
+[project.urls]
+Source = "https://github.com/aniketmor218/skillsift"
+
+[tool.setuptools.packages.find]
+include = ["skillsift*"]
+
+[tool.setuptools.package-data]
+skillsift = ["data/*.yml", "web/templates/*.html", "web/static/*.css"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
